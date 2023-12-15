@@ -1,1 +1,1 @@
-#change dependencies according to you app versions
+#change dependencies according to your app versions
