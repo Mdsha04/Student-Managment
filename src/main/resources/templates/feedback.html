@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    
+  <title>Student Management</title>
+</head>
+<body>
+
+<style>
+.bg-primary{
+		background: #009688 !important;
+		
+	}
+body {
+    font-family: Arial, sans-serif;
+ 	margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 1rem;
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    flex: 1;
+    
+
+}
+
+.about-section {
+    margin-bottom: 2rem;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 0.5rem;
+    position: relative;
+	bottom: 0;
+	width: 100%;
+}
+
+.btn {
+  
+    padding: 8px 16px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-primary {
+  
+}
+.card {
+ 
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+.form-group {
+
+    margin-bottom: 10px;
+}
+
+.form-control {
+
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Student Management System</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+       
+    <a class="nav-link active" th:href="@{/students}">Students <span class="sr-only">(current)</span></a>
+<li class="nav-item">
+	
+          <a class="nav-link active" aria-current="page" th:href="@{/user/home}" href="#">Logout</a>
+        </li>
+      </ul>
+     
+    </div>
+  </div>
+</nav>
+<br>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+			
+		<h2 class="text-center"> Add Feedback</h2>
+		<div class="card-body">
+			
+   <form th:action="@{/feedback}" th:object="${feedback}" method="post">
+	   <div class="form-group">
+		   
+        
+        <!--<label for="feedback_Id">feedback_Id:</label>
+        <input type="number" id="feedback_Id" required th:field="*{feedback_Id}" class="form-control">
+        <br>-->
+     
+        <label for="feedback_EvaluatorId">Evaluator Id</label>
+        <input type="text" id="feedback_EvaluatorId" required th:field="*{FEEDBACK_EVALUATOR_ID}" class="form-control">
+        <br>
+        <label for="feedback_CandidateId">Student Id:</label>
+        <input type="number" id="feedback_CandidateId" required th:field="*{FEEDBACK_CANDIDATE_ID}" class="form-control">
+        <br>
+        
+
+         <label for="student_id">Student Id</label>
+        <input type="number" id="student_id" required th:field="*{s1.student_id}" class="form-control">
+        <br>
+        
+         <label for="student_name">Student Name</label>
+        <input type="text" id="student_name" required th:field="*{s1.studentName}" class="form-control">
+        <br>
+        
+           <!--  <label for="feedback_ScreeningLevel">feedback_ScreeningLevel:</label>
+        <select id="feedback_ScreeningLevel" name="selectedOption">
+            <option th:each="option : ${dropdownValues}" th:value="${option}" required th:field="*{FEEDBACK_SCREENING_LEVEL}" class="form-control"></option>
+        </select>-->
+        
+        
+
+        <label for="feedback_ScreeningLevel">Screening Level</label>
+        <input type="text" id="feedback_ScreeningLevel" required th:field="*{FEEDBACK_SCREENING_LEVEL}" class="form-control">
+        <br>
+        <label for="feedback_Status">Status</label>
+        <input type="text" id="feedback_Status" required th:field="*{feedback_Status}" class="form-control">
+        <br>
+        <label for="feedback_Comment">Comment</label>
+        <input type="text" id="feedback_Comment" required th:field="*{feedback_Comment}" class="form-control">
+        <br>
+        <button type="submit" class="btn btn-primary" onclick="addFeedback()">Add</button>
+	   </div>
+    </form>
+
+	</div>
+</div>
+		</div>
+		</div>
+<script>
+	       function addFeedback() {
+            const feedback_EvaluatorId = document.getElementById("feedback_EvaluatorId").value;
+            const feedback_Id = document.getElementById("feedback_Id").value;
+            const feedback_CandidateId = document.getElementById("feedback_CandidateId").value;
+               const feedback_ScreeningLevel = document.getElementById("feedback_ScreeningLevel").value;
+                  const feedback_Status = document.getElementById("feedback_Status").value;
+                     const student_name = document.getElementById("student_name").value;                   
+                       const student_id = document.getElementById("student_id").value;
+                     const feedback_Comment = document.getElementById("feedback_Comment").value;
+                     
+                        // Append the new row to the table
+            table.appendChild(newRow);
+
+            // Clear the input fields
+            document.getElementById("feedback_EvaluatorId").value = "";
+            document.getElementById("feedback_Id").value = "";
+            document.getElementById("feedback_CandidateId").value = "";
+            document.getElementById("feedback_ScreeningLevel").value = "";
+            document.getElementById("feedback_Status").value = "";
+            document.getElementById("feedback_Comment").value = "";
+            document.getElementById("student_name").value = "";
+            document.getElementById("student_id").value = "";
+            }
+</script>
+
+<footer>
+        <p>&copy; 2023 Student Management System. All rights reserved.</p>
+</footer>
+</body>
+</html>
